@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, TaskDetailViewControllerDelegate, AddTaskViewControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,6 +19,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "Background")!)
         // Do any additional setup after loading the view, typically from a nib.
         
         fetchResultsController = getFetchResultsController()
@@ -71,10 +73,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let thisTask = fetchResultsController.objectAtIndexPath(indexPath!) as TaskModel
             
             detailVC.detailTaskModel = thisTask
+            detailVC.delegate = self
             
         } else if segue.identifier == "showTaskAdd" {
             
             let addTaskVC: AddTaskViewController = segue.destinationViewController as AddTaskViewController
+            addTaskVC.delegate = self
 
         }
     }
@@ -94,12 +98,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return 25
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "To Do"
-        }
-        else {
-            return "Completed"
+        
+        if fetchResultsController.sections?.count == 1 {
+            let fetchedObjects = fetchResultsController.fetchedObjects!
+            let testTask:TaskModel = fetchedObjects[0] as TaskModel
+
+            if testTask.completed == true{
+                return "Completed"
+            }else{
+                return "To do"
+            }
+        }else {
+            if section == 0 {
+                return "To Do"
+            }
+            else {
+                return "Completed"
+            }
         }
     }
     
@@ -107,14 +126,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let thisTask = fetchResultsController.objectAtIndexPath(indexPath) as TaskModel
         
-        if indexPath.section == 0 {
+        if (thisTask.completed == true){
+            thisTask.completed = false
+        }else{
             thisTask.completed = true
         }
-        else {
-            
-            thisTask.completed = false
-        }
-        
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
     }
     
@@ -142,7 +158,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         fetchResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: "completed", cacheName: nil)
         return fetchResultsController
     }
+    
+    //TaskDetailViewControllerDelegate
+    func taskDetailEdited() {
+        showAlert()
+    }
 
+    func showAlert (message: String = "Congratulations"){
+        var alert = UIAlertController(title: "Change made", message: "Congratulations", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Ok!", style: UIAlertActionStyle.Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //addtaskviewcontrollerdelegate
+    
+    func addTask(message: String) {
+        showAlert(message: message)
+    }
+    func addTaskCanceled(message: String) {
+        showAlert(message: message)
+    }
 }
 
 
