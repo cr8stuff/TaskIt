@@ -104,7 +104,7 @@
         <!--Settings View Controller-->
         <scene sceneID="nvV-CD-Xh0">
             <objects>
-                <viewController id="2AW-9c-aaO" customClass="SettingsViewController" customModule="TaskIt" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="2AW-9c-aaO" customClass="SettingsViewController" customModule="TaskIt" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uJ8-qY-HVb"/>
                         <viewControllerLayoutGuide type="bottom" id="IDv-2Z-X9V"/>
@@ -116,6 +116,13 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0Iw-uO-bnn">
                                 <rect key="frame" x="0.0" y="92" width="320" height="160"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="Mfs-UK-R8r"/>
+                                    <constraint firstAttribute="width" constant="320" id="eiH-iC-B7H"/>
+                                    <constraint firstAttribute="height" constant="160" id="lFM-55-yQv"/>
+                                    <constraint firstAttribute="height" constant="160" id="yiO-os-DQw"/>
+                                </constraints>
+                                <inset key="scrollIndicatorInsets" minX="320" minY="0.0" maxX="160" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="capitalizeCell" id="LGD-8D-Gey">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -125,10 +132,51 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Mfs-UK-R8r"/>
+                                        <exclude reference="eiH-iC-B7H"/>
+                                        <exclude reference="lFM-55-yQv"/>
+                                        <exclude reference="yiO-os-DQw"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular" ambiguous="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="eiH-iC-B7H"/>
+                                        <include reference="yiO-os-DQw"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="Mfs-UK-R8r"/>
+                                        <include reference="lFM-55-yQv"/>
+                                    </mask>
+                                </variation>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPs-4I-Zas">
+                                <rect key="frame" x="118" y="428" width="114" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="151" y="445" width="114" height="21"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="297" y="472" width="114" height="21"/>
+                                </variation>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="x36-Kp-0iW">
                                 <rect key="frame" x="0.0" y="260" width="320" height="160"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="Aff-8v-aF9"/>
+                                    <constraint firstAttribute="width" constant="320" id="AiU-PU-JjJ"/>
+                                    <constraint firstAttribute="height" constant="160" id="poN-x1-UVQ"/>
+                                    <constraint firstAttribute="height" constant="160" id="sGS-iZ-pM9"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="completeNewToDoCell" id="MDb-iw-eDm">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -136,17 +184,59 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MDb-iw-eDm" id="s5Y-YC-IUI">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="accessoryView" destination="x36-Kp-0iW" id="te1-ZE-Ays"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Aff-8v-aF9"/>
+                                        <exclude reference="AiU-PU-JjJ"/>
+                                        <exclude reference="poN-x1-UVQ"/>
+                                        <exclude reference="sGS-iZ-pM9"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular" ambiguous="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="Aff-8v-aF9"/>
+                                        <include reference="sGS-iZ-pM9"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="AiU-PU-JjJ"/>
+                                        <include reference="poN-x1-UVQ"/>
+                                    </mask>
+                                </variation>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPs-4I-Zas">
-                                <rect key="frame" x="118" y="428" width="114" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="x36-Kp-0iW" firstAttribute="top" secondItem="0Iw-uO-bnn" secondAttribute="top" id="DCA-fF-CDY"/>
+                            <constraint firstItem="x36-Kp-0iW" firstAttribute="leading" secondItem="kIP-bN-mVH" secondAttribute="leading" id="Kk4-Fe-E0D"/>
+                            <constraint firstItem="x36-Kp-0iW" firstAttribute="leading" secondItem="0Iw-uO-bnn" secondAttribute="leading" id="cnT-pl-GKF"/>
+                            <constraint firstItem="x36-Kp-0iW" firstAttribute="top" secondItem="kIP-bN-mVH" secondAttribute="top" id="tV4-ZJ-RmF"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="DCA-fF-CDY"/>
+                                <exclude reference="Kk4-Fe-E0D"/>
+                                <exclude reference="cnT-pl-GKF"/>
+                                <exclude reference="tV4-ZJ-RmF"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="DCA-fF-CDY"/>
+                                <include reference="Kk4-Fe-E0D"/>
+                                <include reference="cnT-pl-GKF"/>
+                                <include reference="tV4-ZJ-RmF"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="capitalizeTableView" destination="0Iw-uO-bnn" id="MR6-BC-O7u"/>
