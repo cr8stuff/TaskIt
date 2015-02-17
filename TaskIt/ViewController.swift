@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var tableView: UITableView!
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
+    //let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext!
 
     var fetchResultsController:NSFetchedResultsController = NSFetchedResultsController()
     
@@ -26,6 +26,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         fetchResultsController = getFetchResultsController()
         fetchResultsController.delegate = self
         fetchResultsController.performFetch(nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("iCloudUpdated"), name: "coreDataUpdated", object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -131,7 +133,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }else{
             thisTask.completed = true
         }
-        (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
+        //(UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
+        ModelManager.instance.saveContext()
     }
     
     //NSFetchResultController Delegate
@@ -155,7 +158,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func getFetchResultsController() -> NSFetchedResultsController {
         
-        fetchResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: managedObjectContext, sectionNameKeyPath: "completed", cacheName: nil)
+        fetchResultsController = NSFetchedResultsController(fetchRequest: taskFetchRequest(), managedObjectContext: ModelManager.instance.managedObjectContext!, sectionNameKeyPath: "completed", cacheName: nil)
         return fetchResultsController
     }
     
@@ -177,6 +180,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     func addTaskCanceled(message: String) {
         showAlert(message: message)
+    }
+    
+    //iCloud Notification
+    
+    func iCloudUpdated(){
+        tableView.reloadData()
     }
 }
 
